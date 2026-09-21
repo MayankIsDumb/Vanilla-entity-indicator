@@ -25,3 +25,12 @@ Jar: `build/libs/vanilla-entity-indicator-1.0.0.jar` -> put in `mods/`
 
 ## Credits
 Inspired by `camman.18` reel showcasing the vanilla debug option.
+
+## AI disclosure (for Modrinth: enable "Contains AI-generated content" - code, text)
+This mod was built with AI assistance (OpenCode agent, Muse Spark model): the
+indicator renderer, config screens, Lunar-style color picker, and 26.x ports
+were drafted by AI, then reviewed, tested in-game on all 6 versions
+(1.21.11, 26.1, 26.1.1, 26.1.2, 26.2, 26.3), and fixed over several
+test cycles by the human author. Human-directed, AI-assisted - not fully
+AI-generated. NOTE: Modrinth bans AI-generated icons/gallery images - make
+sure the icon is human-made before publishing.
