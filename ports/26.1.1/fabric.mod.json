@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "vanilla-entity-indicator",
+	"version": "${version}",
+	"name": "Vanilla entity indicator",
+	"description": "Vanilla-like 'visualize_entity_supporting_block' - shows green box under every entity through walls, works on invisible players. Port of Dec 9 2025 debug feature.",
+	"authors": [
+		"mayank"
+	],
+	"contact": {
+		"homepage": "https://afkz.studio",
+		"sources": "https://github.com/afkz-studio/vanilla-entity-indicator"
+	},
+	"license": "MIT",
+	"icon": "assets/vanilla-entity-indicator/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"com.invissee.InvisSeeClient"
+		],
+		"modmenu": [
+			"com.invissee.config.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"invissee.mixins.json",
+		{
+			"config": "invissee.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": "~26.1.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

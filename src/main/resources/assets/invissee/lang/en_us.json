@@ -1,0 +1,6 @@
+{
+  "key.invissee.toggle": "Toggle Visualize Entity Supporting Block (InvisSee)",
+  "category.invissee": "InvisSee - Invisible Player Seeker",
+  "message.invissee.enabled": "visualize_entity_supporting_block: ON",
+  "message.invissee.disabled": "visualize_entity_supporting_block: OFF"
+}
