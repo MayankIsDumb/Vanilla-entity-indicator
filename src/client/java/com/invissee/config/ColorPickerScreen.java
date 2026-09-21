@@ -24,7 +24,6 @@ public class ColorPickerScreen extends Screen {
     };
 
     private final Screen parent;
-    private final String label;
     private final IntConsumer onPick;
 
     private float hue;
@@ -40,7 +39,6 @@ public class ColorPickerScreen extends Screen {
     public ColorPickerScreen(Screen parent, String label, int initialArgb, IntConsumer onPick) {
         super(Component.literal("Pick color - " + label));
         this.parent = parent;
-        this.label = label;
         this.onPick = onPick;
         float[] hsb = Color.RGBtoHSB((initialArgb >> 16) & 0xFF, (initialArgb >> 8) & 0xFF, initialArgb & 0xFF, null);
         this.hue = hsb[0];

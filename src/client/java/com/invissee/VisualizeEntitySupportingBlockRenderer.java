@@ -1,7 +1,6 @@
 package com.invissee;
 
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -32,29 +31,13 @@ public class VisualizeEntitySupportingBlockRenderer {
             Minecraft mc = Minecraft.getInstance();
             if (mc.level == null || mc.player == null) return;
 
-            // 1.21.11 uses matrices() instead of matrixStack(), and consumers() still available
-            PoseStack poseStack;
-            try {
-                poseStack = context.matrices();
-            } catch (NoSuchMethodError e) {
-                return;
-            }
+            PoseStack poseStack = context.matrices();
             if (poseStack == null) return;
 
             var consumers = context.consumers();
             if (consumers == null) return;
 
-            // Camera position method renamed to position() in 1.21.11
-            Camera camera;
-            Vec3 camPos;
-            try {
-                // Try new worldState-based camera? Fallback to Minecraft camera
-                camera = mc.gameRenderer.getMainCamera();
-                camPos = camera.position();
-            } catch (Exception ex) {
-                camera = null;
-                camPos = mc.player.position();
-            }
+            Vec3 camPos = mc.gameRenderer.getMainCamera().position();
 
             // Depth-tested vanilla LINES - boxes are occluded by walls,
             // so they only show when the entity / block is in view.

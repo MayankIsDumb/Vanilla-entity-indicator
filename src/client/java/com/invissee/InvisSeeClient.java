@@ -9,7 +9,6 @@ import org.lwjgl.glfw.GLFW;
 import net.minecraft.network.chat.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import net.minecraft.resources.Identifier;
 
 public class InvisSeeClient implements ClientModInitializer {
     public static final String MOD_ID = "invissee";

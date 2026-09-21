@@ -2,6 +2,15 @@
 # Run from the project root: ./release-all.ps1
 # Output: releases/<mc>/, releases/mod-only/ and ports/<mc>/ jars.
 # Tree is left on 1.21.11 (main) afterwards.
+#
+# Layout:
+#   ports/1.21.11/{gradle.properties,build.gradle,fabric.mod.json}  1.21.11 build files
+#   ports/12111-src/...                                             1.21.11-only sources
+#   ports/26x-build.gradle                                          shared 26.x build file
+#   ports/26x-src/...                                               26.1-26.2 sources
+#   ports/26.3-InvisSeeClient.java                                  26.3 client (input API differs)
+#   ports/<mc>/{gradle.properties,fabric.mod.json}                  per-version versions/deps
+# Shared sources (InvisSeeConfig, ModMenuIntegration, mixins) stay in src/.
 $ErrorActionPreference = 'Stop'
 
 function Check($v) {
@@ -17,26 +26,25 @@ function Collect($v) {
 }
 
 function Use26xBuild {
-  Copy-Item build.gradle.26.3.current.bak build.gradle -Force
+  Copy-Item ports/26x-build.gradle build.gradle -Force
   Copy-Item ports/26x-src/com/invissee/InvisSeeClient.java src/client/java/com/invissee/InvisSeeClient.java -Force
   Copy-Item ports/26x-src/com/invissee/VisualizeEntitySupportingBlockRenderer.java src/client/java/com/invissee/VisualizeEntitySupportingBlockRenderer.java -Force
   Copy-Item ports/26x-src/com/invissee/config/InvisSeeConfigScreen.java src/client/java/com/invissee/config/InvisSeeConfigScreen.java -Force
   Copy-Item ports/26x-src/com/invissee/config/ColorPickerScreen.java src/client/java/com/invissee/config/ColorPickerScreen.java -Force
   if (Test-Path src/client/java/com/invissee/RenderTypes.java) {
-    Move-Item src/client/java/com/invissee/RenderTypes.java RenderTypes.java.1.21.11.hold -Force
+    Remove-Item src/client/java/com/invissee/RenderTypes.java -Force
   }
 }
 
 function Use12111 {
-  Copy-Item gradle.properties.1.21.11.bak gradle.properties -Force
-  Copy-Item build.gradle.1.21.11.working.bak build.gradle -Force
-  Copy-Item fabric.mod.json.1.21.11.bak src/main/resources/fabric.mod.json -Force
-  Copy-Item src-1.21.11-bak/InvisSeeClient.java src/client/java/com/invissee/InvisSeeClient.java -Force
-  Copy-Item src-1.21.11-bak/RenderTypes.java src/client/java/com/invissee/RenderTypes.java -Force
-  Copy-Item src-1.21.11-bak/VisualizeEntitySupportingBlockRenderer.java src/client/java/com/invissee/VisualizeEntitySupportingBlockRenderer.java -Force
-  Copy-Item src-1.21.11-bak/config/InvisSeeConfigScreen.java src/client/java/com/invissee/config/InvisSeeConfigScreen.java -Force
-  Copy-Item src-1.21.11-bak/config/ColorPickerScreen.java src/client/java/com/invissee/config/ColorPickerScreen.java -Force
-  if (Test-Path RenderTypes.java.1.21.11.hold) { Remove-Item RenderTypes.java.1.21.11.hold -Force }
+  Copy-Item ports/1.21.11/gradle.properties gradle.properties -Force
+  Copy-Item ports/1.21.11/build.gradle build.gradle -Force
+  Copy-Item ports/1.21.11/fabric.mod.json src/main/resources/fabric.mod.json -Force
+  Copy-Item ports/12111-src/com/invissee/InvisSeeClient.java src/client/java/com/invissee/InvisSeeClient.java -Force
+  Copy-Item ports/12111-src/com/invissee/RenderTypes.java src/client/java/com/invissee/RenderTypes.java -Force
+  Copy-Item ports/12111-src/com/invissee/VisualizeEntitySupportingBlockRenderer.java src/client/java/com/invissee/VisualizeEntitySupportingBlockRenderer.java -Force
+  Copy-Item ports/12111-src/com/invissee/config/InvisSeeConfigScreen.java src/client/java/com/invissee/config/InvisSeeConfigScreen.java -Force
+  Copy-Item ports/12111-src/com/invissee/config/ColorPickerScreen.java src/client/java/com/invissee/config/ColorPickerScreen.java -Force
 }
 
 function Build26($v) {

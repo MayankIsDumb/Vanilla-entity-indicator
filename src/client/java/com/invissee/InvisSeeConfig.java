@@ -6,6 +6,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InvisSeeConfig {
     public static boolean enabled = true;
@@ -17,7 +19,7 @@ public class InvisSeeConfig {
     public static int color = entityColor; // legacy alias
     public static int playerColor = 0xFFFF0000; // red for players
     public static float lineWidth = 1.5f;
-    public static java.util.List<Integer> recentColors = new java.util.ArrayList<>();
+    public static List<Integer> recentColors = new ArrayList<>();
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("vanilla-entity-indicator.json");
@@ -30,7 +32,7 @@ public class InvisSeeConfig {
         int entityColor = InvisSeeConfig.entityColor;
         int playerColor = InvisSeeConfig.playerColor;
         float lineWidth = InvisSeeConfig.lineWidth;
-        java.util.List<Integer> recentColors = new java.util.ArrayList<>(InvisSeeConfig.recentColors);
+        List<Integer> recentColors = new ArrayList<>(InvisSeeConfig.recentColors);
     }
 
     public static void load() {
@@ -51,7 +53,7 @@ public class InvisSeeConfig {
                 playerColor = d.playerColor;
                 lineWidth = d.lineWidth;
                 if (d.recentColors != null) {
-                    recentColors = new java.util.ArrayList<>(d.recentColors);
+                    recentColors = new ArrayList<>(d.recentColors);
                 }
             }
         } catch (IOException e) {
@@ -69,7 +71,7 @@ public class InvisSeeConfig {
             d.entityColor = entityColor;
             d.playerColor = playerColor;
             d.lineWidth = lineWidth;
-            d.recentColors = new java.util.ArrayList<>(recentColors);
+            d.recentColors = new ArrayList<>(recentColors);
             Files.createDirectories(CONFIG_PATH.getParent());
             Files.writeString(CONFIG_PATH, GSON.toJson(d));
             color = entityColor;
